@@ -25,7 +25,7 @@ public class AnnotatedCommandImp implements Command {
 		return commandCallOptions;
 	}
 
-	public static List<AnnotatedCommandImp> create(Class<?> commandClass) {
+	public static List<Command> create(Class<?> commandClass) {
 		return AnnotatedCommandLoader.load(commandClass);
 	}
 

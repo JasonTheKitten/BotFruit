@@ -1,5 +1,9 @@
 package everyos.bot.botfruit.core.command;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+
 import everyos.bot.botfruit.core.command.imp.CommandContainerImp;
 
 /**
@@ -22,6 +26,21 @@ public interface CommandContainer {
 	 * @param clazz The class of the command to add
 	 */
 	void addAnnotatedCommand(Class<?> clazz);
+
+	/**
+	 * Get all the commands in the container.
+	 * @return The commands in the container
+	 */
+	List<Command> getCommands();
+
+	/**
+	 * Get a command from the container by name.
+	 * @param string The name of the command to get
+	 * @param localizer A function that localizes the name of the command
+	 *  by mapping the label to the localized name
+	 * @return The command, if it exists
+	 */
+	Optional<Command> getCommandByName(String string, Function<String, String> localizer);
 
 	/**
 	 * Create a new command container.

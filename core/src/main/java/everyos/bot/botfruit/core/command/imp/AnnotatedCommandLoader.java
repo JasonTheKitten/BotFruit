@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import everyos.bot.botfruit.core.annotation.AnnotatedCommand;
 import everyos.bot.botfruit.core.annotation.CommandEntry;
+import everyos.bot.botfruit.core.command.Command;
 import everyos.bot.botfruit.core.command.CommandCallOption;
 
 public final class AnnotatedCommandLoader {
@@ -15,21 +16,21 @@ public final class AnnotatedCommandLoader {
 
 	// TODO: Make sure there aren't conflicting CommandEntry and AnnotationCommand annotations
 
-	public static List<AnnotatedCommandImp> load(Class<?> commandClass) {
-		List<AnnotatedCommandImp> methodCommands = loadMethodCommands(commandClass);
-		Optional<AnnotatedCommandImp> classCommand = loadClassCommand(commandClass);
+	public static List<Command> load(Class<?> commandClass) {
+		List<Command> methodCommands = loadMethodCommands(commandClass);
+		Optional<Command> classCommand = loadClassCommand(commandClass);
 
-		List<AnnotatedCommandImp> allCommands = new ArrayList<>(methodCommands.size() + 1);
+		List<Command> allCommands = new ArrayList<>(methodCommands.size() + 1);
 		allCommands.addAll(methodCommands);
 		classCommand.ifPresent(allCommands::add);
 
 		return allCommands;
 	}
 
-	private static List<AnnotatedCommandImp> loadMethodCommands(Class<?> commandClass) {
-		List<AnnotatedCommandImp> commands = new ArrayList<>(1);
+	private static List<Command> loadMethodCommands(Class<?> commandClass) {
+		List<Command> commands = new ArrayList<>(1);
 		for (Method method: commandClass.getMethods()) {
-			Optional<AnnotatedCommandImp> annotation = loadMethodCommand(commandClass, method);
+			Optional<Command> annotation = loadMethodCommand(commandClass, method);
 			if (annotation.isPresent()) {
 				commands.add(annotation.get());
 			}
@@ -38,7 +39,7 @@ public final class AnnotatedCommandLoader {
 		return commands;
 	}
 
-	private static Optional<AnnotatedCommandImp> loadMethodCommand(Class<?> commandClass, Method method) {
+	private static Optional<Command> loadMethodCommand(Class<?> commandClass, Method method) {
 		AnnotatedCommand annotation = method.getAnnotation(AnnotatedCommand.class);
 		if (annotation == null) {
 			return Optional.empty();
@@ -49,7 +50,7 @@ public final class AnnotatedCommandLoader {
 	}
 
 
-	private static Optional<AnnotatedCommandImp> loadClassCommand(Class<?> commandClass) {
+	private static Optional<Command> loadClassCommand(Class<?> commandClass) {
 		AnnotatedCommand annotation = commandClass.getAnnotation(AnnotatedCommand.class);
 		if (annotation == null) {
 			return Optional.empty();
