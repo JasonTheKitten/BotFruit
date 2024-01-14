@@ -1,38 +1,31 @@
-plugins {
-    id 'java-library'
-    id 'maven-publish'
+allprojects {
+	group 'everyos.bot'
+	version '0.0.1-SNAPSHOT'
+
+	repositories {
+		mavenCentral()
+	}
 }
 
-group = 'everyos.bot'
-archivesBaseName = 'botfruit'
-version = '0.0.1-SNAPSHOT'
+subprojects {
+	apply plugin: 'java-library'
+	apply plugin: 'maven-publish'
 
-repositories {
-    mavenCentral()
-}
+	dependencies {
+		implementation 'io.projectreactor:reactor-core:3.6.2'
 
-dependencies {
-	implementation "com.discord4j:discord4j-core:3.2.6"
+		testImplementation 'org.mockito:mockito-core:5.8.0'
+		testImplementation libs.junit.jupiter
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	}
 
-	testImplementation 'org.mockito:mockito-core:5.8.0'
-    testImplementation libs.junit.jupiter
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(21)
+		}
+	}
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
 }

@@ -1,0 +1,8 @@
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifactId 'botfruit-core'
+			from components.java
+		}
+	}
+}
