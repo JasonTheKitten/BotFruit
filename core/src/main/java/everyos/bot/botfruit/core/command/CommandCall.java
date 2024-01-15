@@ -4,6 +4,6 @@ import reactor.core.publisher.Mono;
 
 public interface CommandCall {
 
-	Mono<Void> execute(CommandContext context) throws Exception;
+	Mono<Void> execute(CommandContext context);
 
 }

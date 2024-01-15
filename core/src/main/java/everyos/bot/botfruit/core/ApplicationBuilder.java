@@ -19,10 +19,13 @@ public final class ApplicationBuilder {
 	 * input method. For example, on a Discord bot, these would likely be slash commands
 	 * or text commands, but they would not be user menu commands. The specific backend may
 	 * provide more specific ways to give users access to commands.
-	 * @param commands
+	 * @param commands The default commands
+	 * @return The application builder for chaining
 	 */
-	public void setDefaultCommands(CommandContainer commands) {
+	public ApplicationBuilder setDefaultCommands(CommandContainer commands) {
 		this.defaultCommands = commands;
+
+		return this;
 	}
 
 	/**

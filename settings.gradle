@@ -1,2 +1,3 @@
 rootProject.name = 'botfruit'
 include 'core'
+include 'discord4j'

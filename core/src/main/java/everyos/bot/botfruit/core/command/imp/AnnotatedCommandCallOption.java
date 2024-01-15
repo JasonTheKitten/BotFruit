@@ -23,9 +23,13 @@ public class AnnotatedCommandCallOption implements CommandCallOption {
 		return new CommandCall() {
 			@Override
 			@SuppressWarnings("unchecked")
-			public Mono<Void> execute(CommandContext context) throws Exception {
-				Object instance = commandClass.getConstructor().newInstance();
-				return (Mono<Void>) method.invoke(instance);
+			public Mono<Void> execute(CommandContext context) {
+				try {
+					Object instance = commandClass.getConstructor().newInstance();
+					return (Mono<Void>) method.invoke(instance);
+				} catch (Exception e) {
+					return Mono.error(e);
+				}
 			}
 		};
 	}
