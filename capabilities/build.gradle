@@ -1,0 +1,8 @@
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifactId 'botfruit-capabilities'
+			from components.java
+		}
+	}
+}
