@@ -2,19 +2,15 @@ package everyos.bot.botfruit.capabilities;
 
 import java.util.List;
 
-public interface CapabilitiesContainer {
+import everyos.bot.botfruit.capabilities.imp.CapabilitiesContainerBuilderImp;
+import everyos.bot.botfruit.capabilities.imp.ComposedCapabilitiesContainer;
 
-	/**
-	 * Creates a capability handle for the given capability class.
-	 * The capability handle can be used to retrieve the capability
-	 * and manage its lifecycle. Capabilities should be short-lived,
-	 * so it is important to close the handle when the capability is
-	 * no longer needed.
-	 * @param <T> The capability type
-	 * @param capabilityClass The capability class
-	 * @return The capability handle
-	 */
-	<T> CapabilityHandle<T> createCapability(Class<T> capabilityClass);
+/**
+ * A capabilities container is used to register capability providers
+ * used to create capabilities in the context for which the container
+ * was created.
+ */
+public interface CapabilitiesContainer {
 
 	/**
 	 * Get the capability provider intended to be used to create a
@@ -34,7 +30,7 @@ public interface CapabilitiesContainer {
 	 * @return The capabilities container builder
 	 */
 	static CapabilitiesContainerBuilder builder() {
-		throw new UnsupportedOperationException("Not implemented");
+		return new CapabilitiesContainerBuilderImp();
 	}
 
 	/**
@@ -42,12 +38,15 @@ public interface CapabilitiesContainer {
 	 * container. The resulting capabilities container will have all of the
 	 * capabilities of the original capabilities containers. The process of
 	 * resolving dependencies for a capability will have access to all of the
-	 * capabilities in the composed capabilities container. 
+	 * capabilities in the composed capabilities container.
+	 * The order of the capabilities containers provided will be the order
+	 * of importance, such that capabilities will attempt to be resolved from
+	 * the first capabilities container, then the second, and so on.
 	 * @param containers The capabilities containers to compose
 	 * @return The composed capabilities containers
 	 */
 	static CapabilitiesContainer compose(CapabilitiesContainer... containers) {
-		throw new UnsupportedOperationException("Not implemented");
+		return new ComposedCapabilitiesContainer(containers);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * A capability provider is capable of creating a capability and
  * managing it's lifecycle and security policies.
+ * @param <T> The capability type
  */
 public interface CapabilityProvider<T> {
 	
@@ -13,6 +14,8 @@ public interface CapabilityProvider<T> {
 	 * Note that the capability is intended to be short-lived, and any
 	 * long-lived state should be stored in the provider or other
 	 * backing store.
+	 * @param context A context containing info needed for the creation
+	 *  of the capability
 	 * @return The capability
 	 */
 	T createCapability(CapabilityCreationContext context);
@@ -23,6 +26,6 @@ public interface CapabilityProvider<T> {
 	 * the dependencies are met.
 	 * @return The dependencies that must be met to load a capability
 	 */
-	List<Class<T>> getDependencies();
+	List<Class<?>> getDependencies();
 	
 }

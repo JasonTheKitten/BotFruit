@@ -1,12 +1,11 @@
 package everyos.bot.botfruit.capabilities;
 
-import java.io.Closeable;
-
 /**
  * A capability handle is a handle holding a capability, as well
  * as methods for managing that capability's lifecycle.
+ * @param <T> The capability type
  */
-public interface CapabilityHandle<T> extends Closeable {
+public interface CapabilityHandle<T> extends AutoCloseable {
 	
 	/**
 	 * Get the capability held by this handle. Capabilities should

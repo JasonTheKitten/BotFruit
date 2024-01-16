@@ -16,6 +16,7 @@ public interface CapabilitiesContainerBuilder {
 	 * @param <T> The capability type
 	 * @param capabilityClass The capability class
 	 * @param capabilityProvider The capability provider
+	 * @return This capabilities container builder
 	 */
 	<T> CapabilitiesContainerBuilder registerCapabilityProvider(Class<T> capabilityClass, CapabilityProvider<T> capabilityProvider);
 
@@ -27,6 +28,7 @@ public interface CapabilitiesContainerBuilder {
 	 * @param <T> The capability type
 	 * @param capabilityClass The capability class
 	 * @param capabilityProvider The capability provider
+	 * @return This capabilities container builder
 	 */
 	<T> CapabilitiesContainerBuilder preferCapabilityProvider(Class<T> capabilityClass, CapabilityProvider<T> capabilityProvider);
 

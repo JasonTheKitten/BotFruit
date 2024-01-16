@@ -10,6 +10,7 @@ allprojects {
 subprojects {
 	apply plugin: 'java-library'
 	apply plugin: 'maven-publish'
+	apply plugin: 'jacoco'
 
 	dependencies {
 		implementation 'io.projectreactor:reactor-core:3.6.2'
@@ -23,6 +24,11 @@ subprojects {
 		toolchain {
 			languageVersion = JavaLanguageVersion.of(21)
 		}
+	}
+
+	javadoc {
+		exclude '**/imp/**'
+		exclude '**/*Imp.java'
 	}
 
 	tasks.named('test') {
